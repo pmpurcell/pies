@@ -76,6 +76,58 @@ const pies = [
   
     renderToDom("#buttonContainer", domString);
   };
+
+// render form to DOM
+  const pieForm = () => {
+    const domString = `<form id= "pieFormList">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" required class="form-control" id="name">
+      <label for="ingredients" class="form-label">Ingredients</label>
+      <input type="text" required class="form-control" id="ingredients">
+      <label for="bakeTemp" class="form-label">Bake Temp</label>
+      <input type="number" required class="form-control" id="bakeTemp">
+      <label for="drinkPairing" class="form-label">Drink Pairing</label>
+      <input type="text" required class="form-control" id="drinkPairing">
+      <label for="imageUrl" class="form-label">Image Url</label>
+      <input type="url" required class="form-control" id="imageUrl">
+      <label for="instructor" class="form-label">Instructor</label>
+      <input type="text" required class="form-control" id="instructor">
+      <label for="iceCream" class="form-label">Ice Cream</label>
+      <input type="text" required class="form-control" id="iceCream">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>`
+    
+    ;
+  
+    renderToDom("#pieForm", domString);
+  };
+
+// What will happen when submit button is clicked
+  const handleFormSubmit = (event) =>  {
+      event.preventDefault();
+
+      const newPies = {
+        name: document.querySelector(`#name`).value,
+        ingredients: document.querySelector(`#ingredients`).value,
+        bakeTemp: document.querySelector(`#bakeTemp`).value,
+        drinkPairing: document.querySelector(`#drinkPairing`).value,
+        imageUrl:document.querySelector(`#imageUrl`).value,
+        instructor: document.querySelector(`#instructor`).value,
+        iceCream: document.querySelector(`#iceCream`).value,
+      }
+
+      pies.push(newPies);
+      console.log(pies);
+      pieBuilder(pies);
+  }
+
+// Event Listener For Submit Button
+  const pieFormEvents = () => {
+      const pieFormElement = document.querySelector("#pieFormList");
+      pieFormElement.addEventListener("submit", handleFormSubmit);
+  };
   
   const filterPies = (array, instructor) => {
     return array.filter(pieObject => pieObject.instructor === instructor);
@@ -129,6 +181,8 @@ const pies = [
     buttons(); // PUT DOM ELEMENTS FIRST
     buttonEvents(); // EVENT LISTNERS AFTER
     pieBuilder(pies);
+    pieForm();
+    pieFormEvents();
   };
   
   init();
